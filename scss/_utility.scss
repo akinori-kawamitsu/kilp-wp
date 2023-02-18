@@ -1,0 +1,56 @@
+@use "parameter" as *;
+.strong {
+    font-weight: bold;
+}
+.normal {
+    font-weight: normal;
+}
+
+$mgn: 0;
+@while $mgn <=25 {
+    .mg-#{$mgn} {
+		margin: #{$mgn}px !important;
+	} 
+	.mt-#{$mgn} {
+		margin-top: #{$mgn}px !important;
+	}
+	.mb-#{$mgn} {
+		margin-bottom: #{$mgn}px !important;
+	}
+	.ml-#{$mgn} {
+		margin-left: #{$mgn}px !important;
+	}
+	.mr-#{$mgn} {
+		margin-right: #{$mgn}px !important;
+	}
+	$mgn: $mgn + 5;
+}
+$mgnl: 30;
+@while $mgnl <=120 {
+	.mt-#{$mgnl} {
+		margin-top: #{$mgnl}px !important;
+	}
+	.mb-#{$mgnl} {
+		margin-bottom: #{$mgnl}px !important;
+	}
+	$mgnl: $mgnl + 10;
+}
+$pdn: 0;
+@while $pdn <=50 {
+	.pd-#{$mgn} {
+		padding: #{$mgn}px !important;
+	}
+	.pt-#{$mgn} {
+		padding-top: #{$mgn}px !important;
+	}
+	.pb-#{$mgn} {
+		padding-bottom: #{$mgn}px !important;
+	}
+	.pl-#{$mgn} {
+		padding-left: #{$mgn}px !important;
+	}
+	.pr-#{$mgn} {
+		padding-right: #{$mgn}px !important;
+	}
+	$pdn: $pdn + 5;
+}

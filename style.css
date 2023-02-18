@@ -1,0 +1,853 @@
+@charset "UTF-8";
+/*
+Theme name: kilp-wp
+Author: Komitsuboshi interface Akinori Kawamitsu
+Author URI: http://komitsuboshi.com
+Description: LP用テーマ
+Version: 1.0.0
+License: MIT License
+License URI: https://opensource.org/licenses/MIT
+Text Domain: kilp
+*/
+@font-face {
+  font-family: "noto-sans";
+  src: url(./font/NotoSansJP-Bold-Subset.woff2) format("woff2");
+  font-weight: bold;
+}
+@font-face {
+  font-family: "noto-sans";
+  src: url(./font/NotoSansJP-Regular-Subset.woff2) format("woff2");
+  font-weight: normal;
+}
+:root {
+  --fs-12: 0.75rem;
+  --fs-13: 0.8125rem;
+  --fs-14: 0.875rem;
+  --fs-16: 1rem;
+  --fs-18: 1.125rem;
+  --fs-20: 1.25rem;
+  --fs-24: 1.5rem;
+  --fs-28: 1.75rem;
+  --fs-32: 2rem;
+  --fs-36: 2.25rem;
+  --fs-40: 2.5rem;
+  --fs-44: 2.75rem;
+  --fs-48: 3rem;
+  --fs-52: 3.25rem;
+  --fs-56: 3.5rem;
+  --fs-60: 3.75rem;
+  --fs-64: 4rem;
+  --fs-small: 0.0875rem;
+  --font-serif: "ＭＳ Ｐ明朝", "MS PMincho", "ヒラギノ明朝 Pro W3", "Hiragino Mincho Pro", serif;
+  --font-sanserif: "noto-sans", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "BIZ UDPGothic", Meiryo, sans-serif;
+  --font-mono: Consolas, "Courier New", Courier, Monaco, monospace, "Osaka－等幅", Osaka-mono, "ＭＳ ゴシック", "MS Gothic";
+  --container: 960px;
+  --break-max-sp: 640px;
+  --break-min-pc: 641px;
+}
+
+/* 
+　sanitize.css によるCSSリセット
+*/
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+/* 装飾と垂直位置の継承 */
+::before,
+::after {
+  text-decoration: inherit;
+  vertical-align: inherit;
+}
+
+/** 5. iOSにおいけるリンクのグレーハイライトを除去
+  * 6. Prevent adjustments of font size after orientation changes in iOS. */
+:where(:root) {
+  cursor: default;
+  line-height: 1.5;
+  overflow-wrap: break-word;
+  -moz-tab-size: 4;
+    -o-tab-size: 4;
+       tab-size: 4;
+  -webkit-tap-highlight-color: transparent; /* 5 */
+  -webkit-text-size-adjust: 100%; /* 6 */
+  -moz-text-size-adjust: 100%;
+       text-size-adjust: 100%; /* 6 */
+}
+
+:where(body) {
+  margin: 0;
+}
+
+/* Chrome、Edge、Firefox、Safariの `section` と `article` コンテキスト内の `h1` 要素のフォントサイズとマージンを修正 */
+:where(h1) {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+/* 入れ子のリストにおけるマージンの除去（Chrome, Edge, Safari.）*/
+:where(dl, ol, ul) :where(dl, ol, ul) {
+  margin: 0;
+}
+
+/*  1. Firefoxにおけるhrの線色の調整
+  * 2. Firefoxにおける正しいボックスサイズの指定 */
+:where(hr) {
+  color: inherit; /* 1 */
+  height: 0; /* 2 */
+}
+
+/* ナビゲーション内のリストからlist style を除去 */
+:where(nav) :where(ol, ul) {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* SafariでVoiceOverがリストのセマンティクスを無視しないようにする。 */
+:where(nav li)::before {
+  content: "​";
+  float: left;
+}
+
+:where(pre) {
+  font-family: monospace, monospace;
+  font-size: 1em;
+  overflow: auto;
+}
+
+/* Safariで正しいテキスト装飾を追加する */
+:where(abbr[title]) {
+  text-decoration: underline;
+  -webkit-text-decoration: underline dotted;
+          text-decoration: underline dotted;
+}
+
+/* Chrome、Edge、Safariで、正しいフォントのウェイトを追加 */
+:where(b, strong) {
+  font-weight: bolder;
+}
+
+:where(code, kbd, samp) {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+
+:where(small), .small {
+  font-size: 80%;
+}
+
+:where(audio, canvas, iframe, img, svg, video) {
+  vertical-align: middle;
+}
+
+:where(iframe) {
+  border-style: none;
+}
+
+:where(svg:not([fill])) {
+  fill: currentColor;
+}
+
+/* 2. Chrome, Edge, Safari での枠線の色
+   3. Chrome, Edge, and Safariでのテキストインデントを消去 */
+:where(table) {
+  border-collapse: collapse;
+  border-color: currentColor; /* 2 */
+  text-indent: 0; /* 3 */
+  width: 100%;
+}
+
+/* Safari でコントロールにつくマージンを消去 */
+:where(button, input, select) {
+  margin: 0;
+}
+
+/* Correct the inability to style buttons in iOS and Safari. */
+:where(button, [type=button i], [type=reset i], [type=submit i]) {
+  -webkit-appearance: button;
+}
+
+:where(fieldset) {
+  border: 1px solid #a0a0a0;
+}
+
+/* Chrome, Edge, Firefox.で正しい垂直位置にする */
+:where(progress) {
+  vertical-align: baseline;
+}
+
+/* 1. Firefox, Safariでのマージンの除去  */
+:where(textarea) {
+  margin: 0;
+  /* 1 */
+  resize: vertical;
+}
+
+/*  1. Correct the odd appearance in Chrome, Edge, and Safari.
+    2. Correct the outline style in Safari. */
+:where([type=search i]) {
+  -webkit-appearance: textfield; /* 1 */
+  outline-offset: -2px; /* 2 */
+}
+
+/* Correct the cursor style of increment and decrement buttons in Safari. */
+::-webkit-inner-spin-button,
+::-webkit-outer-spin-button {
+  height: auto;
+}
+
+/*  Correct the text style of placeholders in Chrome, Edge, and Safari. */
+::-webkit-input-placeholder {
+  color: inherit;
+  opacity: 0.54;
+}
+
+/* Remove the inner padding in Chrome, Edge, and Safari on macOS. */
+::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+/* 1. Correct the inability to style upload buttons in iOS and Safari.
+   2. Change font properties to `inherit` in Safari. */
+::-webkit-file-upload-button {
+  -webkit-appearance: button; /* 1 */
+  font: inherit; /* 2 */
+}
+
+/* Add the correct styles in Safari. */
+:where(dialog) {
+  background-color: white;
+  border: solid;
+  color: black;
+  height: -moz-fit-content;
+  height: fit-content;
+  left: 0;
+  margin: auto;
+  padding: 1em;
+  position: absolute;
+  right: 0;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+:where(dialog:not([open])) {
+  display: none;
+}
+
+/* Add the correct display in Safari. */
+:where(details > summary:first-of-type) {
+  display: list-item;
+}
+
+:where([aria-busy=true i]) {
+  cursor: progress;
+}
+
+:where([aria-disabled=true i], [disabled]) {
+  cursor: not-allowed;
+}
+
+:where([aria-hidden=false i][hidden]) {
+  display: initial;
+}
+
+:where([aria-hidden=false i][hidden]:not(:focus)) {
+  clip: rect(0, 0, 0, 0);
+  position: absolute;
+}
+
+h1,
+.h1 {
+  font-size: var(--fs-40);
+  line-height: 1.3;
+  text-align: center;
+  margin: 0 0 0.67em 0;
+}
+
+h2,
+.h2 {
+  font-size: var(--fs-32);
+  margin: 0.67em 0;
+  line-height: 1.3;
+}
+
+h3,
+.h3 {
+  font-size: var(--fs-28);
+  margin: 0.67em 0;
+  line-height: 1.3;
+}
+
+h4,
+.h4 {
+  font-size: var(--fs-22);
+  margin: 0.67em 0;
+  line-height: 1.3;
+}
+
+h5,
+.h5 {
+  font-size: var(--fs-18);
+  margin: 0.67em 0;
+  line-height: 1.3;
+}
+
+h6,
+.h6 {
+  font-size: var(--fs-16);
+  margin: 0.67em 0;
+  line-height: 1.3;
+}
+
+.toppage h1,
+.toppage .h1 {
+  font-size: var(--fs-40);
+  line-height: 1.3;
+  text-align: center;
+  margin: 0 0 0.67em 0;
+}
+.toppage h2,
+.toppage .h2 {
+  font-size: var(--fs-32);
+  margin: 0.67em 0;
+  line-height: 1.3;
+}
+.toppage h3,
+.toppage .h3 {
+  font-size: var(--fs-28);
+  margin: 0.67em 0;
+  line-height: 1.3;
+}
+.toppage h4,
+.toppage .h4 {
+  font-size: var(--fs-22);
+  margin: 0.67em 0;
+  line-height: 1.3;
+}
+.toppage h5,
+.toppage .h5 {
+  font-size: var(--fs-18);
+  margin: 0.67em 0;
+  line-height: 1.3;
+}
+.toppage h6,
+.toppage .h6 {
+  font-size: var(--fs-16);
+  margin: 0.67em 0;
+  line-height: 1.3;
+}
+
+.content {
+  width: 100%;
+  padding-inline: 10px;
+}
+@media (min-width: 960px) {
+  .content {
+    padding-inline: 0;
+  }
+}
+.content > .container {
+  padding-inline: 0;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  padding-inline: 10px;
+  margin-inline: auto;
+}
+@media (min-width: 960px) {
+  .container {
+    padding-inline: 0;
+  }
+}
+
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.flex-r {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row-reverse;
+}
+
+@media (min-width: 641px) {
+  .grid-half {
+    display: grid;
+    grid-template-columns: 50% 50%;
+  }
+  .grid-left-wide {
+    grid-column: 1/2;
+  }
+  .grid-left-overarea {
+    grid-column: 1/1;
+  }
+  .grid-left {
+    grid-column: 1/2;
+  }
+  .grid-right-wide {
+    grid-column: 2/3;
+  }
+  .grid-right-overarea {
+    grid-column: 3/3;
+  }
+  .grid-right {
+    grid-column: 2/3;
+  }
+}
+@media (min-width: 960px) {
+  .grid-half {
+    display: grid;
+    grid-template-columns: calc(50% - 480px) 480px 480px calc(50% - 480px);
+  }
+  .grid-left-wide {
+    grid-column: 1/3;
+  }
+  .grid-left-overarea {
+    grid-column: 1/2;
+  }
+  .grid-left {
+    grid-column: 2/3;
+  }
+  .grid-right-wide {
+    grid-column: 3/5;
+  }
+  .grid-right-overarea {
+    grid-column: 4/5;
+  }
+  .grid-right {
+    grid-column: 3/5;
+  }
+}
+.strong {
+  font-weight: bold;
+}
+
+.normal {
+  font-weight: normal;
+}
+
+.mg-0 {
+  margin: 0px !important;
+}
+
+.mt-0 {
+  margin-top: 0px !important;
+}
+
+.mb-0 {
+  margin-bottom: 0px !important;
+}
+
+.ml-0 {
+  margin-left: 0px !important;
+}
+
+.mr-0 {
+  margin-right: 0px !important;
+}
+
+.mg-5 {
+  margin: 5px !important;
+}
+
+.mt-5 {
+  margin-top: 5px !important;
+}
+
+.mb-5 {
+  margin-bottom: 5px !important;
+}
+
+.ml-5 {
+  margin-left: 5px !important;
+}
+
+.mr-5 {
+  margin-right: 5px !important;
+}
+
+.mg-10 {
+  margin: 10px !important;
+}
+
+.mt-10 {
+  margin-top: 10px !important;
+}
+
+.mb-10 {
+  margin-bottom: 10px !important;
+}
+
+.ml-10 {
+  margin-left: 10px !important;
+}
+
+.mr-10 {
+  margin-right: 10px !important;
+}
+
+.mg-15 {
+  margin: 15px !important;
+}
+
+.mt-15 {
+  margin-top: 15px !important;
+}
+
+.mb-15 {
+  margin-bottom: 15px !important;
+}
+
+.ml-15 {
+  margin-left: 15px !important;
+}
+
+.mr-15 {
+  margin-right: 15px !important;
+}
+
+.mg-20 {
+  margin: 20px !important;
+}
+
+.mt-20 {
+  margin-top: 20px !important;
+}
+
+.mb-20 {
+  margin-bottom: 20px !important;
+}
+
+.ml-20 {
+  margin-left: 20px !important;
+}
+
+.mr-20 {
+  margin-right: 20px !important;
+}
+
+.mg-25 {
+  margin: 25px !important;
+}
+
+.mt-25 {
+  margin-top: 25px !important;
+}
+
+.mb-25 {
+  margin-bottom: 25px !important;
+}
+
+.ml-25 {
+  margin-left: 25px !important;
+}
+
+.mr-25 {
+  margin-right: 25px !important;
+}
+
+.mt-30 {
+  margin-top: 30px !important;
+}
+
+.mb-30 {
+  margin-bottom: 30px !important;
+}
+
+.mt-40 {
+  margin-top: 40px !important;
+}
+
+.mb-40 {
+  margin-bottom: 40px !important;
+}
+
+.mt-50 {
+  margin-top: 50px !important;
+}
+
+.mb-50 {
+  margin-bottom: 50px !important;
+}
+
+.mt-60 {
+  margin-top: 60px !important;
+}
+
+.mb-60 {
+  margin-bottom: 60px !important;
+}
+
+.mt-70 {
+  margin-top: 70px !important;
+}
+
+.mb-70 {
+  margin-bottom: 70px !important;
+}
+
+.mt-80 {
+  margin-top: 80px !important;
+}
+
+.mb-80 {
+  margin-bottom: 80px !important;
+}
+
+.mt-90 {
+  margin-top: 90px !important;
+}
+
+.mb-90 {
+  margin-bottom: 90px !important;
+}
+
+.mt-100 {
+  margin-top: 100px !important;
+}
+
+.mb-100 {
+  margin-bottom: 100px !important;
+}
+
+.mt-110 {
+  margin-top: 110px !important;
+}
+
+.mb-110 {
+  margin-bottom: 110px !important;
+}
+
+.mt-120 {
+  margin-top: 120px !important;
+}
+
+.mb-120 {
+  margin-bottom: 120px !important;
+}
+
+.pd-30 {
+  padding: 30px !important;
+}
+
+.pt-30 {
+  padding-top: 30px !important;
+}
+
+.pb-30 {
+  padding-bottom: 30px !important;
+}
+
+.pl-30 {
+  padding-left: 30px !important;
+}
+
+.pr-30 {
+  padding-right: 30px !important;
+}
+
+.pd-30 {
+  padding: 30px !important;
+}
+
+.pt-30 {
+  padding-top: 30px !important;
+}
+
+.pb-30 {
+  padding-bottom: 30px !important;
+}
+
+.pl-30 {
+  padding-left: 30px !important;
+}
+
+.pr-30 {
+  padding-right: 30px !important;
+}
+
+.pd-30 {
+  padding: 30px !important;
+}
+
+.pt-30 {
+  padding-top: 30px !important;
+}
+
+.pb-30 {
+  padding-bottom: 30px !important;
+}
+
+.pl-30 {
+  padding-left: 30px !important;
+}
+
+.pr-30 {
+  padding-right: 30px !important;
+}
+
+.pd-30 {
+  padding: 30px !important;
+}
+
+.pt-30 {
+  padding-top: 30px !important;
+}
+
+.pb-30 {
+  padding-bottom: 30px !important;
+}
+
+.pl-30 {
+  padding-left: 30px !important;
+}
+
+.pr-30 {
+  padding-right: 30px !important;
+}
+
+.pd-30 {
+  padding: 30px !important;
+}
+
+.pt-30 {
+  padding-top: 30px !important;
+}
+
+.pb-30 {
+  padding-bottom: 30px !important;
+}
+
+.pl-30 {
+  padding-left: 30px !important;
+}
+
+.pr-30 {
+  padding-right: 30px !important;
+}
+
+.pd-30 {
+  padding: 30px !important;
+}
+
+.pt-30 {
+  padding-top: 30px !important;
+}
+
+.pb-30 {
+  padding-bottom: 30px !important;
+}
+
+.pl-30 {
+  padding-left: 30px !important;
+}
+
+.pr-30 {
+  padding-right: 30px !important;
+}
+
+.pd-30 {
+  padding: 30px !important;
+}
+
+.pt-30 {
+  padding-top: 30px !important;
+}
+
+.pb-30 {
+  padding-bottom: 30px !important;
+}
+
+.pl-30 {
+  padding-left: 30px !important;
+}
+
+.pr-30 {
+  padding-right: 30px !important;
+}
+
+.pd-30 {
+  padding: 30px !important;
+}
+
+.pt-30 {
+  padding-top: 30px !important;
+}
+
+.pb-30 {
+  padding-bottom: 30px !important;
+}
+
+.pl-30 {
+  padding-left: 30px !important;
+}
+
+.pr-30 {
+  padding-right: 30px !important;
+}
+
+.pd-30 {
+  padding: 30px !important;
+}
+
+.pt-30 {
+  padding-top: 30px !important;
+}
+
+.pb-30 {
+  padding-bottom: 30px !important;
+}
+
+.pl-30 {
+  padding-left: 30px !important;
+}
+
+.pr-30 {
+  padding-right: 30px !important;
+}
+
+.pd-30 {
+  padding: 30px !important;
+}
+
+.pt-30 {
+  padding-top: 30px !important;
+}
+
+.pb-30 {
+  padding-bottom: 30px !important;
+}
+
+.pl-30 {
+  padding-left: 30px !important;
+}
+
+.pr-30 {
+  padding-right: 30px !important;
+}
+
+.pd-30 {
+  padding: 30px !important;
+}
+
+.pt-30 {
+  padding-top: 30px !important;
+}
+
+.pb-30 {
+  padding-bottom: 30px !important;
+}
+
+.pl-30 {
+  padding-left: 30px !important;
+}
+
+.pr-30 {
+  padding-right: 30px !important;
+}/*# sourceMappingURL=style.css.map */

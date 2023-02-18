@@ -1,0 +1,212 @@
+/* 
+　sanitize.css によるCSSリセット
+*/
+
+*,
+::before,
+::after {
+    box-sizing: border-box;
+}
+
+/* 装飾と垂直位置の継承 */
+::before,
+::after {
+    text-decoration: inherit;
+    vertical-align: inherit;
+}
+
+/** 5. iOSにおいけるリンクのグレーハイライトを除去
+  * 6. Prevent adjustments of font size after orientation changes in iOS. */
+:where(:root) {
+    cursor: default;
+    line-height: 1.5;
+    overflow-wrap: break-word;
+    tab-size: 4;
+    -webkit-tap-highlight-color: transparent;    /* 5 */
+    -webkit-text-size-adjust: 100%;    /* 6 */
+    text-size-adjust: 100%;    /* 6 */
+}
+
+:where(body) {
+    margin: 0;
+}
+
+/* Chrome、Edge、Firefox、Safariの `section` と `article` コンテキスト内の `h1` 要素のフォントサイズとマージンを修正 */
+:where(h1) {
+    font-size: 2em;
+    margin: 0.67em 0;
+}
+
+/* 入れ子のリストにおけるマージンの除去（Chrome, Edge, Safari.）*/
+:where(dl, ol, ul) :where(dl, ol, ul) {
+    margin: 0;
+}
+
+/*  1. Firefoxにおけるhrの線色の調整
+  * 2. Firefoxにおける正しいボックスサイズの指定 */
+:where(hr) {
+    color: inherit;    /* 1 */
+    height: 0;    /* 2 */
+}
+
+/* ナビゲーション内のリストからlist style を除去 */
+:where(nav) :where(ol, ul) {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* SafariでVoiceOverがリストのセマンティクスを無視しないようにする。 */
+:where(nav li)::before {
+    content: "\200B";
+    float: left;
+}
+
+:where(pre) {
+    font-family: monospace, monospace;
+    font-size: 1em;
+    overflow: auto;
+}
+
+/* Safariで正しいテキスト装飾を追加する */
+:where(abbr[title]) {
+    text-decoration: underline;
+    text-decoration: underline dotted;
+}
+
+/* Chrome、Edge、Safariで、正しいフォントのウェイトを追加 */
+:where(b, strong) {
+    font-weight: bolder;
+}
+
+:where(code, kbd, samp) {
+    font-family: monospace, monospace;
+    font-size: 1em;
+}
+
+:where(small), .small {
+    font-size: 80%;
+}
+
+:where(audio, canvas, iframe, img, svg, video) {
+    vertical-align: middle;
+}
+
+:where(iframe) {
+    border-style: none;
+}
+
+:where(svg:not([fill])) {
+    fill: currentColor;
+}
+
+/* 2. Chrome, Edge, Safari での枠線の色
+   3. Chrome, Edge, and Safariでのテキストインデントを消去 */
+
+:where(table) {
+    border-collapse: collapse;
+    border-color: currentColor;    /* 2 */
+    text-indent: 0;    /* 3 */
+    width: 100%;
+}
+
+/* Safari でコントロールにつくマージンを消去 */
+:where(button, input, select) {
+    margin: 0;
+}
+
+/* Correct the inability to style buttons in iOS and Safari. */
+:where(button, [type="button" i], [type="reset" i], [type="submit" i]) {
+    -webkit-appearance: button;
+}
+
+:where(fieldset) {
+    border: 1px solid #a0a0a0;
+}
+
+/* Chrome, Edge, Firefox.で正しい垂直位置にする */
+:where(progress) {
+    vertical-align: baseline;
+}
+
+/* 1. Firefox, Safariでのマージンの除去  */
+
+:where(textarea) {
+    margin: 0;
+    /* 1 */
+    resize: vertical;
+}
+
+/*  1. Correct the odd appearance in Chrome, Edge, and Safari.
+    2. Correct the outline style in Safari. */
+:where([type="search" i]) {
+    -webkit-appearance: textfield;   /* 1 */
+    outline-offset: -2px;    /* 2 */
+}
+
+/* Correct the cursor style of increment and decrement buttons in Safari. */
+::-webkit-inner-spin-button,
+::-webkit-outer-spin-button {
+    height: auto;
+}
+
+/*  Correct the text style of placeholders in Chrome, Edge, and Safari. */
+::-webkit-input-placeholder {
+    color: inherit;
+    opacity: 0.54;
+}
+
+/* Remove the inner padding in Chrome, Edge, and Safari on macOS. */
+::-webkit-search-decoration {
+    -webkit-appearance: none;
+}
+
+/* 1. Correct the inability to style upload buttons in iOS and Safari.
+   2. Change font properties to `inherit` in Safari. */
+
+::-webkit-file-upload-button {
+    -webkit-appearance: button;    /* 1 */
+    font: inherit;    /* 2 */
+}
+
+/* Add the correct styles in Safari. */
+:where(dialog) {
+    background-color: white;
+    border: solid;
+    color: black;
+    height: -moz-fit-content;
+    height: fit-content;
+    left: 0;
+    margin: auto;
+    padding: 1em;
+    position: absolute;
+    right: 0;
+    width: -moz-fit-content;
+    width: fit-content;
+}
+
+:where(dialog:not([open])) {
+    display: none;
+}
+
+/* Add the correct display in Safari. */
+:where(details > summary:first-of-type) {
+    display: list-item;
+}
+
+:where([aria-busy="true" i]) {
+    cursor: progress;
+}
+
+:where([aria-disabled="true" i], [disabled]) {
+    cursor: not-allowed;
+}
+
+:where([aria-hidden="false" i][hidden]) {
+    display: initial;
+}
+
+:where([aria-hidden="false" i][hidden]:not(:focus)) {
+    clip: rect(0, 0, 0, 0);
+    position: absolute;
+}

@@ -1,0 +1,78 @@
+@use "parameter" as *;
+.content {
+    width: 100%;
+    padding-inline: 10px;
+    @media (min-width: $container) {
+        padding-inline: 0;
+    }
+    > .container {
+        padding-inline: 0;
+    }
+}
+.container {
+    width: 100%;
+    max-width: var(--container);
+    padding-inline: 10px;
+    margin-inline: auto;
+    @media (min-width: $container) {
+        padding-inline: 0;
+    }
+}
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+}
+.flex-r {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row-reverse;
+}
+
+@media (min-width: $min-pc) {
+    .grid-half {
+        display: grid;
+        grid-template-columns: 50% 50%;
+    }
+    .grid-left-wide {
+        grid-column: 1 / 2;
+    }
+    .grid-left-overarea {
+        grid-column: 1 / 1;
+    }
+    .grid-left {
+        grid-column: 1 / 2;
+    }
+    .grid-right-wide {
+        grid-column: 2 / 3;
+    }
+    .grid-right-overarea {
+        grid-column: 3 / 3;
+    }
+    .grid-right {
+        grid-column: 2 / 3;
+    }
+}
+@media (min-width: $container) {
+    .grid-half {
+        display: grid;
+        grid-template-columns: calc(50% - $container / 2 ) calc($container / 2) calc($container / 2) calc(50% - ($container / 2 ));
+    }
+    .grid-left-wide {
+        grid-column: 1 / 3;
+    }
+    .grid-left-overarea {
+        grid-column: 1 / 2;
+    }
+    .grid-left {
+        grid-column: 2 / 3;
+    }
+    .grid-right-wide {
+        grid-column: 3 / 5;
+    }
+    .grid-right-overarea {
+        grid-column: 4 / 5;
+    }
+    .grid-right {
+        grid-column: 3 / 5;
+    }
+}
